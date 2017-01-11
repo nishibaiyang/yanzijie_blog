@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>水榭清松-Song Kong</title>
+    <description>This is Song&#39; home.</description>
+    <link>kongsong.me/</link>
+    <atom:link href="kongsong.me/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 01 Jan 2017 20:10:07 +0800</pubDate>
+    <lastBuildDate>Sun, 01 Jan 2017 20:10:07 +0800</lastBuildDate>
+    <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>CSS实现移动端图片点击的遮罩效果</title>
+        <description>&lt;p&gt;最近在做一个移动端的图片墙，遇到这样一个需求：点击墙中的图片，图片上出现一个颜色为 #999，不透明度为 0.3 的遮罩层。页面中每张图片大致以如下 HTML 结构呈现：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;photo-wrapper&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;photo&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;每个&lt;code class=&quot;highlighter-rouge&quot;&gt;photo-wrapper&lt;/code&gt;的大小可变。&lt;code class=&quot;highlighter-rouge&quot;&gt;photo&lt;/code&gt;以&lt;code class=&quot;highlighter-rouge&quot;&gt;background-image&lt;/code&gt;的形式显示图片。也就是说，每张照片的大小都不是固定的。因此，最初想到的实现方案是，在每张图片后面加一个 div 元素，设置为绝对定位，同时设置&lt;code class=&quot;highlighter-rouge&quot;&gt;photo-wrapper&lt;/code&gt;为相对定位，当添加的 div 元素处于 active 状态时，改变其透明度。下面是实现这个设想的代码：&lt;/p&gt;
+
+&lt;p&gt;相应的 HTML 代码：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;photo-wrapper&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;photo&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mask&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;相应的 CSS 代码：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.photo-wrapper&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;relative&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;c&quot;&gt;/*......*/&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.mask&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;background-color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#999&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.mask&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:active&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;上述方法经 chrome 调试，可以实现遮罩效果。但用 Android 真机进行测试的时候，发现两个问题，遮罩层的绝对定位和 active 在移动端均失效了。&lt;/p&gt;
+
+&lt;p&gt;对于绝对定位失效的问题，可以通过&lt;code class=&quot;highlighter-rouge&quot;&gt;margin-left&lt;/code&gt;来解决。但由于图片大小不固定，需要使用 JS 来设置遮罩层的大小以及&lt;code class=&quot;highlighter-rouge&quot;&gt;margin-left&lt;/code&gt;的值。以下是相应的代码：&lt;/p&gt;
+
+&lt;p&gt;相应的 CSS 代码：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.mask&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;background-color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#999&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.mask&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:active&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;相应的JS代码（使用了 Zepto.js）：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$photo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;.photo&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$photo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$photo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;.mask&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;css&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;marginLeft&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;移动端 active 失效的问题，在 Stack Overflow 上找到了答案，将遮罩层的 html 修改成以下形式就可以了：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mask&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;javascript:void(0);&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ontouchstart=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;return true;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/a&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;经过上述修改，就可以实现移动端点击图片出现遮罩层的效果啦。在开发的过程中，还曾经尝试给遮罩层绑定&lt;code class=&quot;highlighter-rouge&quot;&gt;touchstart&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;touchend&lt;/code&gt;事件，以此来修改它的透明度，但由于图片墙是可以滚动的，在滚动界面而非点击图片时，图片也会出现遮罩层的效果，因此这种方法被放弃了。&lt;/p&gt;
+</description>
+        <pubDate>Sat, 24 Dec 2016 22:12:30 +0800</pubDate>
+        <link>kongsong.me/blog/photo-mask/</link>
+        <guid isPermaLink="true">kongsong.me/blog/photo-mask/</guid>
+        
+        <category>CN</category>
+        
+        <category>front-end</category>
+        
+        <category>CSS</category>
+        
+        <category>MT</category>
+        
+        
+        <category>Front-end</category>
+        
+      </item>
+    
+      <item>
+        <title>Ice Bear Jekyll Theme</title>
+        <description>&lt;p&gt;This is my first jekyll theme decorated by my favorite items – blue and ice bear. It’s welcomed to give me a star at github if you like it.&lt;/p&gt;
+
+&lt;p&gt;&lt;a class=&quot;github-button&quot; href=&quot;https://github.com/songkong/Blog/tree/gh-pages&quot; data-count-href=&quot;/songkong/Blog/stargazers&quot; data-count-api=&quot;/repos/songkong/Blog#stargazers_count&quot; data-count-aria-label=&quot;# stargazers on GitHub&quot; aria-label=&quot;Star songkong/Blog on GitHub&quot;&gt;Star&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;installation&quot;&gt;Installation&lt;/h1&gt;
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Fork the repository. &lt;a class=&quot;github-button&quot; href=&quot;https://github.com/songkong/Blog/fork&quot; data-count-href=&quot;/songkong/Blog/network&quot; data-count-api=&quot;/repos/songkong/Blog#forks_count&quot; data-count-aria-label=&quot;# forks on GitHub&quot; aria-label=&quot;Fork songkong/Blog on GitHub&quot;&gt;Fork&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Edit &lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt; file.&lt;/li&gt;
+  &lt;li&gt;Edit &lt;code class=&quot;highlighter-rouge&quot;&gt;About me&lt;/code&gt; content in &lt;code class=&quot;highlighter-rouge&quot;&gt;index.html&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Add your own &lt;code class=&quot;highlighter-rouge&quot;&gt;projects&lt;/code&gt; in &lt;code class=&quot;highlighter-rouge&quot;&gt;_includes/projects.html&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Change &lt;code class=&quot;highlighter-rouge&quot;&gt;domain name&lt;/code&gt; in &lt;code class=&quot;highlighter-rouge&quot;&gt;CNAME&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Add your own &lt;code class=&quot;highlighter-rouge&quot;&gt;disqus&lt;/code&gt; code in &lt;code class=&quot;highlighter-rouge&quot;&gt;_includes/comments.html&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;The last two scripts in &lt;code class=&quot;highlighter-rouge&quot;&gt;assets/js/script.js&lt;/code&gt; offer Google Analytics and Baidu Analytics. You can replace them with your own codes.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;style-test&quot;&gt;Style test&lt;/h1&gt;
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;heading-1&quot;&gt;Heading 1&lt;/h1&gt;
+
+&lt;h2 id=&quot;heading-2&quot;&gt;Heading 2&lt;/h2&gt;
+
+&lt;h3 id=&quot;heading-3&quot;&gt;Heading 3&lt;/h3&gt;
+
+&lt;h4 id=&quot;heading-4&quot;&gt;Heading 4&lt;/h4&gt;
+
+&lt;h5 id=&quot;heading-5&quot;&gt;Heading 5&lt;/h5&gt;
+
+&lt;h6 id=&quot;heading-6&quot;&gt;Heading 6&lt;/h6&gt;
+
+&lt;blockquote&gt;
+  &lt;h3 id=&quot;heading-3-in-blockquotes&quot;&gt;Heading 3 in Blockquotes&lt;/h3&gt;
+  &lt;p&gt;Normal Blockquotes text.&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;Unordered List in Blockquotes.&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;ol&gt;
+    &lt;li&gt;Ordered List in Blockquotes.&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Unordered List.
+    &lt;ul&gt;
+      &lt;li&gt;Unordered List.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Ordered List
+    &lt;ol&gt;
+      &lt;li&gt;Ordered List&lt;/li&gt;
+      &lt;li&gt;Ordered List&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Ordered List&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;sr&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Ruby&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;codes&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;parallel&#39;&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;Parallel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lots_of_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chunk&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;heavy_computation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chunk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+</description>
+        <pubDate>Mon, 03 Oct 2016 15:52:30 +0800</pubDate>
+        <link>kongsong.me/blog/ice-bear-jekyll-theme/</link>
+        <guid isPermaLink="true">kongsong.me/blog/ice-bear-jekyll-theme/</guid>
+        
+        <category>EN</category>
+        
+        <category>jekyll</category>
+        
+        <category>front-end</category>
+        
+        
+        <category>Front-end</category>
+        
+      </item>
+    
+      <item>
+        <title>学习笔记之《JavaScript 高级程序设计》（上篇）</title>
+        <description>&lt;h1 id=&quot;section&quot;&gt;目录&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;h4 id=&quot;javascriptchapter1-&quot;&gt;第一章【 &lt;a href=&quot;#chapter1&quot;&gt;JavaScript简介&lt;/a&gt; 】&lt;/h4&gt;
+  &lt;ol&gt;
+    &lt;li&gt;&lt;a href=&quot;#chapter1-1&quot;&gt;ECMAScript&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#chapter1-2&quot;&gt;文档对象模型（DOM）&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#chapter1-3&quot;&gt;浏览器对象模型（BOM）&lt;/a&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+
+  &lt;h4 id=&quot;htmljavascriptchapter2-&quot;&gt;第二章【 &lt;a href=&quot;#chapter2&quot;&gt;在HTML中使用JavaScript&lt;/a&gt; 】&lt;/h4&gt;
+  &lt;ol&gt;
+    &lt;li&gt;&lt;a href=&quot;#chapter2-1&quot;&gt;&amp;lt;script&amp;gt;与&amp;lt;noscript&amp;gt;元素&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#chapter2-2&quot;&gt;嵌入代码与外部文件&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#chapter2-3&quot;&gt;文档模式&lt;/a&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;chapter1&quot;&gt;第一章  JavaScript简介&lt;/h3&gt;
+
+&lt;p&gt;一个完整的 JavaScript 实现由如下三个部分组成：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;核心（ECMAJavaScript）&lt;/li&gt;
+  &lt;li&gt;文档对象模型（DOM）&lt;/li&gt;
+  &lt;li&gt;浏览器对象模型（BOM）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;chapter1-1&quot;&gt;1.1 ECMAScript&lt;/h4&gt;
+
+&lt;p&gt;ECMAScript 是由 ECMA-262 定义的与&lt;code class=&quot;highlighter-rouge&quot;&gt;宿主环境&lt;/code&gt;（如 Web 浏览器、Node 和 Adobe Flash 等）没有依赖关系的一门语言，该语言本身并不包括输入和输出定义。宿主环境不仅提供基本的 ECMAScript 实现，同时还会提供该语言的扩展，如 DOM。&lt;/p&gt;
+
+&lt;p&gt;ECMA-262 规定了这门语言的下列组成：语法、类型、语句、关键字、保留字、操作符、对象。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;chapter1-2&quot;&gt;1.2 文档对象模型（DOM）&lt;/h4&gt;
+
+&lt;p&gt;文档对象模型（DOM，Document Object Model）是针对 XML 但经过扩展用于 HTML 的 API。 DOM 把整个页面映射为一个多层节点结构，HTML 或 XML页面中的每个组成部分都是某种类型的节点，这些节点又包含着不同类型的数据。通过 DOM 创建的文档树形图并借助 DOM 提供的 API，可以轻松的对节点进行删除、添加、替换或修改等操作。&lt;/p&gt;
+
+&lt;p&gt;由于 Netscape 和微软在开发 DHTML 方面持不同意见，这影响了 Web 跨平台性能。于是，W3C 开始着手规划 DOM。1998 年 DOM1 级（DOM Level 1）成为 W3C 的推荐标准。DOM1 级由两个模块组成：DOM 核心（DOM Core）和 DOM HTML。其中 DOM 核心规定了如何映射基于 XML 的文档结构，以便简化对文档中任意部分的访问和操作。DOM HTML 模块在 DOM 核心基础上添加了针对 HTML 的对象和方法。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;DOM 并不只是针对 JS，很多别的语言也实现了 DOM。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;DOM2 级引入了如下新模块：DOM 视图（DOM Views）、DOM 事件（DOM Events）、DOM 样式（DOM Style）和 DOM 遍历和范围（DOM Traversal and Range）。&lt;/p&gt;
+
+&lt;p&gt;DOM3 级在 DOM 加载和保存（DOM Load and Save）模块中引入了以统一方式加载和保存文档的方法，在 DOM 验证（DOM Validation）模块中新增了验证文档的方法。同时 DOM3 级也开始支持 XML 1.0 规范，涉及 XML Infoset、XPath 和 XML Base。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注：DOM0 级标准是不存在的，只是 DOM 历史坐标中的一个参照点。具体来说，它指的是 IE 4.0 和 Netscape Navigator 4.0 最初支持的 DHTML。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;除了 DOM 核心和 DOM HTML 接口之外，另外几种语言也发布了针对自己的 DOM 标准。以下基于 XML 的语言，它们的 DOM 标准都添加了与特定语言相关的新方法和新接口，且这些语言都是 W3C 的推荐标准：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SVG （Scalable Vector Graphic，可伸缩矢量图）1.0；&lt;/li&gt;
+  &lt;li&gt;MathML（Mathematical Markup Language，数学标记语言）1.0；&lt;/li&gt;
+  &lt;li&gt;SMIL（Synchronized Multimedia Integration Language，同步多媒体集成语言）。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;chapter1-3&quot;&gt;1.3 浏览器对象模型（BOM）&lt;/h4&gt;
+
+&lt;p&gt;浏览器对象模型（BOM，Browser Object Model）提供访问和操作浏览器窗口的方法和接口。使用 BOM 可以控制浏览器显示的页面以外的部分。由于没有 BOM 标准可以遵循，因此每个浏览器都有自己的实现。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;chapter2&quot;&gt;第二章  在HTML中使用JavaScript&lt;/h3&gt;
+
+&lt;h4 id=&quot;chapter2-1&quot;&gt;2.1 &amp;lt;script&amp;gt;与&amp;lt;noscript&amp;gt;元素&lt;/h4&gt;
+
+&lt;p&gt;&amp;lt;script&amp;gt;定义了6个属性：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;async: 可选。只对外部脚本有效，用于实现异步脚本。表示应该立即下载脚本，但不应妨碍页面中的其他操作，如下载其他资源或等待加载其他脚本。标记为 async 的脚本不保证按照指定它们的先后顺序执行。因此，需要确保各个脚本之间互不依赖，同时建议不在加载期间修改 DOM。&lt;/li&gt;
+  &lt;li&gt;charset: 可选，很少用。表示通过src属性指定的代码的字符集。&lt;/li&gt;
+  &lt;li&gt;defer: 可选。只对外部脚本有效，用于实现延迟脚本。表示脚本可以延迟到文档完全被解析和显示之后再执行。延迟脚本会按照声明顺序执行，但在现实中，延迟脚本不一定会按照顺序执行，因此最好只包含一个延迟脚本。&lt;/li&gt;
+  &lt;li&gt;language: 已废弃。&lt;/li&gt;
+  &lt;li&gt;src: 可选。表示包含要执行代码的外部文件。带有src属性的&amp;lt;script&amp;gt;元素不应该在&amp;lt;script&amp;gt;和&amp;lt;/script&amp;gt;标签之间再包含额外的 JavaScript 代码。若包含，则嵌入的代码会被忽略。&lt;/li&gt;
+  &lt;li&gt;type: 可选。表示编写代码使用的&lt;code class=&quot;highlighter-rouge&quot;&gt;脚本语言的内容类型（MIME类型）&lt;/code&gt;。考虑到约定俗成和最大限度的浏览器兼容性，type 属性的值一般为&lt;code class=&quot;highlighter-rouge&quot;&gt;text/javascript&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&amp;lt;noscript&amp;gt;元素的作用是，当浏览器不支持脚本或脚本被禁用时，该标签之间的内容会被显示出来，其他情况下，浏览器均不会呈现&amp;lt;noscript&amp;gt;中的内容。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;chapter2-2&quot;&gt;2.2 嵌入代码与外部文件&lt;/h4&gt;
+
+&lt;p&gt;在 HTML 页面中嵌入执行 JavaScript 代码有两种方式：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;使用 javascript: 前缀构建执行 JavaScript 代码的 URL。如&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;a href=&quot;javascript:alert(&#39;Hello world!&#39;);&quot;&amp;gt;&amp;lt;/a&amp;gt;&lt;/code&gt;。&lt;/li&gt;
+  &lt;li&gt;在&amp;lt;script…/&amp;gt;元素标签之间包含 JavaScript 代码。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;为了让 HTML 页面和 JavaScript 脚本更好的分离，我们将 JavaScript 脚本单独保存在&lt;code class=&quot;highlighter-rouge&quot;&gt;*.js&lt;/code&gt;文件中，使用如下的语法格式导入外部脚本：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;test.js&quot;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;text/javascript&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/script&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;使用外部文件的优点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;可维护性：把 JavaScript 代码放在特定的文件中，有利于项目的维护。&lt;/li&gt;
+  &lt;li&gt;可缓存：浏览器能够根据具体的设置缓存链接的所有外部 JavaScript 文件，若有多个页面都使用同一文件，那么文件只需下载一次。&lt;/li&gt;
+  &lt;li&gt;适应未来。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;chapter2-3&quot;&gt;2.3 文档模式&lt;/h4&gt;
+
+&lt;p&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;文档类型（doctype）&lt;/code&gt;可定义文档模式：&lt;code class=&quot;highlighter-rouge&quot;&gt;混杂模式（quirks mode）&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;标准模式（standards mode）&lt;/code&gt;。如果在文档开始处没有进行文档类型声明，则浏览器会默认开启混杂模式，混杂模式是向后兼容的，在不同浏览器下的行为差异非常大，不推荐使用。&lt;/p&gt;
+
+&lt;p&gt;可通过如下代码开启标准模式：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;c&quot;&gt;&amp;lt;!-- HTML 5 --&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+</description>
+        <pubDate>Thu, 15 Sep 2016 13:40:30 +0800</pubDate>
+        <link>kongsong.me/blog/javascript-reading-notes/</link>
+        <guid isPermaLink="true">kongsong.me/blog/javascript-reading-notes/</guid>
+        
+        <category>CN</category>
+        
+        <category>front-end</category>
+        
+        <category>JavaScript</category>
+        
+        
+        <category>Front-end</category>
+        
+      </item>
+    
+      <item>
+        <title>写在学期初：年中总结与规划</title>
+        <description>&lt;p&gt;今天在小群里感慨，已经四年没有秋天回过家了，着实很伤感。过了片刻就反应过来，其实是五年了，自己已经研二了呀！就越加伤感了。明年就要加入找工作大军，未来的一年很重要，遂决定给自己列个 To do 时间表，时刻督促自己不要懈怠。顺便再为上学期做个总结吧。自己的第一篇中文博客，貌似很有意义。&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;半年总结&lt;/h3&gt;
+
+&lt;p&gt;年初接触前端，到现在已经半年啦。自己在这半年中还是收获颇丰的。&lt;/p&gt;
+
+&lt;p&gt;二月的时候，自己花了一周的时间啃完了一本前端入门书，然后用原生 JS 写了几个小游戏 demo，功能和界面都完成的不错，但过了半年再回去看当时的代码，真的惨不忍睹。好在可以安慰自己，说明自己进步了！&lt;/p&gt;
+
+&lt;p&gt;三月开学之后，一边忙着做实验室课题的研究，一边做百度前端技术学院的 task。本来有三个队友，奈何他们都忙着找工作，自己只能花更多的时间独立解决遇到的问题（期间自己并不知道能够独立提交代码，所以自己的任务提交记录为零，好心塞）。做到三月底，CSS 和 JS 的基础得到了不小的提高！果然不可以纸上谈兵呀，看着很简单的网页，用CSS实现起来竟然有那么多问题。&lt;/p&gt;
+
+&lt;p&gt;四月，自己作为一只菜鸟前端的生活正式开始啦！（此处省略几千字，会有一篇独立博文描述O(∩_∩)O）。从那时起，我才发现，原来 Chrome 的 F12 是这样用的！！！以前只会傻傻的 alert！审查元素调 CSS 逆天！Network 各种 Response 看花眼！Source 各种断点 F8 解决无数 bug ！自己仿佛开启了新世界的大门！&lt;/p&gt;
+
+&lt;p&gt;六月，让人无奈的考试周到临，好在学期课不多。两门英语，听说和写译。自己非常喜欢听说课，老师非常幽默，还有一点点帅。他非常关心各种社会问题，也对它们有自己独到的见解。我和队友关于校园暴力与欺凌的 presentation 得到了他很高的评价，自己超级开心。其实题目我和队友半分钟之内就决定了，当时我刚看完 &lt;a href=&quot;https://movie.douban.com/subject/25954475/&quot;&gt;Spotlight&lt;/a&gt; 不久，被神父性侵青少年的案件深深震撼，虽然神父不会在中国如此猖獗，但相似的青少年受欺凌事件在中国屡见不鲜，恰好定题目的时候也发生了一件这样非常有社会影响的案子，我就非常果断的选了这个题目。这次的 presentation，与其他组一人宣讲一半 PPT 的形式不同，我和队友是全班唯一以节目访谈方式进行的，老师又对我们话题感兴趣，提了非常多的问题，涉及法律、新媒体、教育等多方面，专业名词很多，问题也很犀利，很多我用中文都不一定能够阐述清楚，但我们还是用英文坚持了一个多小时。到最后，老师很满意，我自己也很震惊，就像他说的，不做，我们永远不知道自己能做的多好。&lt;/p&gt;
+
+&lt;p&gt;期末复习其实是非常轻松的，两门英语不需要复习，一门嵌入式开发交大作业就行，只剩一门需要考试的信息论，作为本科唯二拿到满分的课程之一，我对它还是很有信心的。七月初考完试，想着巩固一个月的 JS 基础，暑假再开始搭博客。偶然看到一篇博文，说是搭博客这件事，越拖越晚。于是自己一狠心，就买了域名，开启了自己搭博客的旅程。&lt;/p&gt;
+
+&lt;p&gt;作为一名非设计师，PS、AI 水平入门级别，没有设计稿，完全按着脑海中的样子开始写代码。第一个小 demo 走纯蓝色清新风，效果不是很满意，接着转战商务大片风，被老毕吐槽直男审美，扬言要和我领证。最终还是选择走纯色清新风。逛了很久 &lt;a href=&quot;https://dribbble.com&quot;&gt;Dribbble&lt;/a&gt;，看了不少别人的博客，觉得哪里设计的妙，就仔细研究，最后终于有了现在这个博客。虽然目前适配等方面做的还不够好，一些 style 的实现用了比较笨的方法，主页的 svg 其实可以用 AI 实现，但作为自己的第一个 Jekyll 博客，我已经算是满意了。毕竟日子还长，这些问题我会在后续慢慢解决，同时也会新增一些功能。希望我的博客可以变得越来越好。&lt;/p&gt;
+
+&lt;p&gt;七月还有一件开心的事，paper 中了！虽然后来由于种种原因，在注册的阶段不得不 withdraw 我的 paper 改投其他会，但第一次中论文，还是很欣慰的。&lt;/p&gt;
+
+&lt;p&gt;啰嗦那么多，归纳起来上半年实现了这么几件大事:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;完成了学生生涯的所有课程。&lt;/li&gt;
+    &lt;li&gt;发了小论文。&lt;/li&gt;
+    &lt;li&gt;第一次参与前端大型项目。&lt;/li&gt;
+    &lt;li&gt;独立完成博客的搭建。&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;下半年规划&lt;/h3&gt;
+
+&lt;p&gt;为了明年校招的时候自己能够从容淡定些，接下来的半年，需要把该考的证、该掌握的基础知识、该做的项目都搞定。算下来时间也是挺紧的，给自己划几个时间节点，希望可以圆满完成！&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;9月初-9月底，复习计算机三级网络技术，完成考试。&lt;/li&gt;
+    &lt;li&gt;10月初-10月底，复习银行从业相关知识，完成考试。&lt;/li&gt;
+    &lt;li&gt;9月开始，学习 React、React Native，和飞哥着手开始做 APP，deadline 大概是今年年底。&lt;/li&gt;
+    &lt;li&gt;平时多看看 JS 相关的基础知识和算法，年底之前把屯的书看完。&lt;/li&gt;
+    &lt;li&gt;每天学英语！12月再考一次六级，希望可以考过600分。&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;目前想到这么多，明天开始，不辜负每一天。明年夏天，遇见最好的自己。&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 31 Aug 2016 21:58:30 +0800</pubDate>
+        <link>kongsong.me/blog/review-and-plan/</link>
+        <guid isPermaLink="true">kongsong.me/blog/review-and-plan/</guid>
+        
+        <category>CN</category>
+        
+        <category>生活</category>
+        
+        <category>总结与规划</category>
+        
+        
+        <category>Life</category>
+        
+      </item>
+    
+  </channel>
+</rss>

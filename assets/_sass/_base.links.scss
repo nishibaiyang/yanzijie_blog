@@ -1,0 +1,122 @@
+a {
+  font-weight: $base-font-bold;
+  text-decoration: none;
+  color: $light-red;
+  text-shadow:  1px 1px $dark-white ,2px 2px $darker-white;
+}
+
+blockquote a {
+  color: $blue;
+  text-shadow: none;
+  &:hover {
+    border-bottom: 1px dashed $blue;
+  }
+}
+
+/**
+ * btn
+ */
+
+.btn-primary {
+  width: auto;
+  height: auto;
+  padding: 5px 10px;
+  @include border-radius(20px);
+  @include transition-duration(0.5s);
+  text-shadow: none;
+  border: 2px solid $blue;
+  color: $blue;
+  background-color: transparent;
+  &:hover,
+  &:active {
+    background-color: rgba(98, 179, 245, 0.1);
+  }
+}
+
+.btn-blue {
+  border: none;
+  color: $white;
+  background-color: $blue;
+  &:hover,
+  &:active {
+    background-color: $light-red;
+  }
+}
+
+.btn-white {
+  border: 2px solid $white;
+  color: $white;
+  background-color: transparent;
+  &:hover,
+  &:active {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.btn-top {
+  font-size: 3em;
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+}
+
+.btn-pagination {
+  color: $blue;
+  padding: 0.25em;
+  border: 2px dashed $white;
+  border-bottom: 2px dashed $blue;
+  text-shadow: none;
+  float: right;
+  @include border-radius(0.25em);
+  @include transition-duration(0.5s);
+  &:hover,
+  &:active {
+    border: 2px dashed $blue;
+  }
+  &:last-child {
+    margin-right: 1.5em;
+  }
+}
+
+.post-pagination {
+  //@include flex();
+  //flex-direction: row;
+  //justify-content: space-between;
+  height: 1.5em;
+  margin-top: 1.5em;
+  .disabled {
+    color: $grey-color;
+	border-bottom: 2px dashed $grey-color;
+	cursor: not-allowed;
+	&:hover {
+	  border: 2px dashed $grey-color;
+	}
+  }
+}
+
+/**
+ * title
+ */
+
+.post-title {
+  display: inline-block;
+  max-width: 75%;
+  color: $light-red;
+  text-shadow: 1px 1px $dark-white, 2px 2px $darker-white;
+  &:hover {
+    text-shadow: 1px 1px $dark-white, 2px 2px $light-blue;
+  }
+}
+
+.entry-title {
+  color: $blue;
+  a {
+    color: $blue;
+    text-shadow: none;
+    &:hover {
+      border-bottom: 1px dashed $blue;
+    }
+  }
+}
+
+
