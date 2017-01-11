@@ -1,55 +1,37 @@
-#Site
-title: 水榭清松-Song Kong
-description: This is Song' home.
-logo: favicon.png
-url: kongsong.me
-rss_url: /feed.xml
+# Site settings
+name: Less Or More
+email: 496380369@qq.com
+author: yan zi jie
+url: https://nishibaiyang.github.io/yanzijie_blog/
+resume_site: https://nishibaiyang.github.io/yanzijie_blog/
+github: https://github.com/nishibaiyang
+baseurl: "/LessOrMore"
+description: Actually, less is more!
+meta_description: 个人博客;知识在于积累
+motto: It's our wits that make us men.
+banner: 任何带有思考的选择都是对的。
 
-# Jekyll
-permalink:          /blog/:title/
-markdown:           kramdown
-highlighter:        rouge
-kramdown:
-  auto_ids:         true
-  footnote_nr:      1
-  entity_output:    as_char
-  toc_levels:       1..6
-  enable_coderay:   false
-sass:
-  sass_dir:         assets/_sass
-  style:            compressed
+#permalink: /:categories/:year/:month/:day/:title/
+permalink: /:year/:month/:day/:title/
+paginate: 10
 
-# Social Links
-email:               hi@kongsong.me
-#google.plus:        username
-#twitter:            username
-facebook:            kongsong
-github:              songkong
-stackoverflow:      6438519/song-kong   #from a "http://stackoverflow.com/users/123456/username" link
-linkedin:           kongsong
-#xing:              username
-#instagram:          username
-#lastfm:            username
-#tumblr:            username
-#pinterest:         username
-#foursquare:        username
-#steam:              username
-#dribbble:          username
-#youtube:           username
-#soundcloud:        username
-#weibo:             username
-#flickr:            username
-#codepen:           username
-#keybase:           username
-#xmpp:              username@server.com
-#hackernews:        username
-#behance:           username
+exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'Rakefile']
 
-# Gems
-gems:
-  - jekyll-feed
-  - jekyll-sitemap
-  - jekyll-gist
+github_username: nishibaiyang
+highlighter: rouge
 
-# Exclude list
-exclude: [README.md, Gemfile, Gemfile.lock, _site, src, vendor, CNAME, LICENSE, Rakefile,.sass-cache,.DS_Store,.idea]
+# Build settings
+markdown: kramdown
+
+FB:
+  comments :
+    provider : --
+    duoshuo:
+        short_name : --
+    disqus :
+        short_name : --
+    # facebook :
+    #   appid : 123
+    #   num_posts: 5
+    #   width: 580
+    #   colorscheme: light

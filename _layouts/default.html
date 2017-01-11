@@ -3,16 +3,17 @@
 
   {% include head.html %}
 
-  <body>
-	
-	<div class="main-wrapper">
-		{% include header.html %}
-		{% include banner.html %}
-		{% include about.html %}
-		{% include blog.html %}
-		{% include projects.html %}
-		{% include footer.html %}
-	</div>
-	
+  <body class="index">
+
+    {% include header.html %}
+    {% include docs_header.html %}
+    {% if page.title %}
+      {% include banner.html %}
+    {% endif %}
+
+    {{ content }}
+    
+    {% include footer.html %}
+
   </body>
 </html>
