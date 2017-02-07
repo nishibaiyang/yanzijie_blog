@@ -3,7 +3,7 @@ layout: post
 title:  FastAndroidFram介绍
 date:   2017-01-27 01:08:00 +0800
 categories: document
-tag: 教程
+tag: FastAndroidFram介绍
 ---
 
 * content
