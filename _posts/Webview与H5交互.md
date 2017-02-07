@@ -13,7 +13,7 @@ tag: Webview与H5交互
 
 
 
-Webview与H5交互
+#Webview与H5交互#
 ---
 ## 挖掘容器的最大潜力：配置合适的Webview属性 ##
  Android中的WebView组件，在4.4以前的版本是WebKit的内核，4.4以后换成chromium的内核，可以直接显示和渲染web页面，直接显示网页，也可以直接用html文件（网络上或本地assets中）作布局和JavaScript交互调用。Webview提供了很多设置项，在App内嵌H5时，要结合自己H5的特点去选取合适的设置项进行配置。而且，当你发现某些H5的特性没有体现出来、没有加载成功的时候，也可以先去查一查是不是还需要设置Webview的哪些属性。经常用到的配置包括以下：
