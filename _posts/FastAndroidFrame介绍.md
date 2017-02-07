@@ -1,3 +1,16 @@
+---
+layout: post
+title:  FastAndroidFram介绍
+date:   2017-01-27 01:08:00 +0800
+categories: document
+tag: 教程
+---
+
+* content
+{:toc}
+
+
+
 FastAndroidFram介绍
 ---
 ## 重复造轮子干嘛，都是用别人的框架集合有什么意义 ##
