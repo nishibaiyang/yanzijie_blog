@@ -165,3 +165,9 @@ Android 3.0以上版本，需要移除风险接口
        在页面destory的时候，需要解除webview与activity的依赖，调用WebView.onPause()以及WebView.destory()，以便让系统释放WebView相关资源销毁webview，防止内存泄漏：
 无法释放js导致耗电
         在有的手机里，如果webview加载的html中有一些js一直在执行比如动画之类的东西如果此刻webview 挂在了后台，这些资源是不会被释放用户也无法感知，导致一直占有cpu 耗电特别快，可以在页面的onStop()和onResume()里分别把setJavaScriptEnabled();给设置成false和true。
+
+
+
+[jekyll]:      http://jekyllrb.com
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-help]: https://github.com/jekyll/jekyll-help

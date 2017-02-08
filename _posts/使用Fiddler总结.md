@@ -44,3 +44,10 @@ Rules->Performance->Disable Caching
 可以使用composer构造请求报文进行快速测试，可以指定重新发送某条请求。
 ![](http://img.blog.csdn.net/20151213191145736)
 将左侧的请求拖到composer中，修改请求头后点击execute，就会产生一个新的请求提交，再查看。
+
+
+
+
+[jekyll]:      http://jekyllrb.com
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-help]: https://github.com/jekyll/jekyll-help
