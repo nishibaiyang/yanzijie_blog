@@ -1,24 +1,21 @@
 ---
 layout: post
-title:  "Webview与H5交互"
-date:   2017-01-28 01:08:00 +0800
-categories: document
-tag: Webview与H5交互
+title:  "Android WebView与H5交互!"
+date:   2017-01-10 13:31:01 +0800
+categories: jekyll
+tag: jekyll
 ---
 
 * content
 {:toc}
 
 
-
-POST build by yzj.
-
+First POST build by Jekyll.
 
 
+Android WebView与H5交互
+------------------------
 
-
-#Webview与H5交互#
----
 ## 挖掘容器的最大潜力：配置合适的Webview属性 ##
  Android中的WebView组件，在4.4以前的版本是WebKit的内核，4.4以后换成chromium的内核，可以直接显示和渲染web页面，直接显示网页，也可以直接用html文件（网络上或本地assets中）作布局和JavaScript交互调用。Webview提供了很多设置项，在App内嵌H5时，要结合自己H5的特点去选取合适的设置项进行配置。而且，当你发现某些H5的特性没有体现出来、没有加载成功的时候，也可以先去查一查是不是还需要设置Webview的哪些属性。经常用到的配置包括以下：
      webSettings.setJavaScriptEnabled(true);//支持js
@@ -169,7 +166,6 @@ Android 3.0以上版本，需要移除风险接口
        在页面destory的时候，需要解除webview与activity的依赖，调用WebView.onPause()以及WebView.destory()，以便让系统释放WebView相关资源销毁webview，防止内存泄漏：
 无法释放js导致耗电
         在有的手机里，如果webview加载的html中有一些js一直在执行比如动画之类的东西如果此刻webview 挂在了后台，这些资源是不会被释放用户也无法感知，导致一直占有cpu 耗电特别快，可以在页面的onStop()和onResume()里分别把setJavaScriptEnabled();给设置成false和true。
-
 
 
 [jekyll]:      http://jekyllrb.com

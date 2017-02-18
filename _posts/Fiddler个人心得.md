@@ -1,18 +1,20 @@
 ---
 layout: post
-title:  "Fiddler教程"
-date:   2016-08-27 01:08:00 +0800
-categories: document
-tag: Fiddler教程
+title:  "Fiddler个人心得!"
+date:   2017-02-03 13:31:01 +0800
+categories: jekyll
+tag: jekyll
 ---
 
 * content
 {:toc}
 
 
-POST build by yzj.
+First POST build by Jekyll.
 
 
+Fiddler个人心得
+------------------------
 
 #Fiddler#
 Fiddler就不用过多的介绍了，知道的朋友都应该了解这个功能强大的软件。接下来就是记录我平常用的一些操作。
@@ -47,8 +49,6 @@ Rules->Performance->Disable Caching
 可以使用composer构造请求报文进行快速测试，可以指定重新发送某条请求。
 ![](http://img.blog.csdn.net/20151213191145736)
 将左侧的请求拖到composer中，修改请求头后点击execute，就会产生一个新的请求提交，再查看。
-
-
 
 
 [jekyll]:      http://jekyllrb.com
