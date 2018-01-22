@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Android WindowManager初探!"
+title:  "Android Window初探!"
 date:   2018-01-13 13:31:01 +0800
 categories: jekyll
 tag: jekyll
@@ -13,7 +13,7 @@ tag: jekyll
 First POST build by Jekyll.
 
 
-Android WindowManager初探
+Android Window初探
 ------------------------
 **文章目录**
 
