@@ -24,7 +24,7 @@ Android 基于 Linux，而 Linux 出于安全考虑，不同进程间不能之�
 
 
 
-### Android中的进程通信方式
+ ### Android中的进程通信方式
 #### 叮叮叮
 我们先来思考一个问题，Linux系统本身有许多IPC手段，为什么Android要重新设计一套Binder机制呢？
 Android也是基于Linux内核，Linux现有的进程通信手段有以下几种:
