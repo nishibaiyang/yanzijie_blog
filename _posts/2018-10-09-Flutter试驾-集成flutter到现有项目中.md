@@ -65,6 +65,23 @@ android{
 }
 ```
 
+## 二、native跳转到flutter模块组件
+
+1. 现有项目application必须初始化flutter的实现``` FlutterMain.startInitialization(this); ```
+2. 对应activity继承FlutterActivity并注册
+``` 
+public class JumpFlutterActivity extends FlutterActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        GeneratedPluginRegistrant.registerWith(this);
+    }
+} 
+```
+这样就可以实现native跳转flutter模块组件
+
+
+
 
 [jekyll]:      http://jekyllrb.com
 [jekyll-gh]:   https://github.com/jekyll/jekyll
