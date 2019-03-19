@@ -131,6 +131,7 @@ AppRegistry.registerComponent('standard_project', () => standard_project);
 ### 分析ReactActivity
 1. ReactActivity继承于Activity，并实现了它的生命周期方法。ReactActivity自己并没有做什么事情，所有的功能都由它的委托类ReactActivityDelegate来完成
 2. ReactActivityDelegate
+
 ```
 public class ReactActivityDelegate {
 
@@ -172,6 +173,7 @@ public class ReactActivityDelegate {
   }
 }
 ```
+
 从loadApp方法中可看出：
 1. 创建ReactRootView作为应用的容器，它本质上是一个FrameLayout。
 2. 调用ReactRootView.startReactApplication()进一步执行应用启动流程。
@@ -185,6 +187,7 @@ public class ReactActivityDelegate {
 
 ##最终实现，动态加载的方式
 1. Native侧需要创建 ViewManager 和 ReactPackage
+
 ```
 /**
  * @author qiyu
